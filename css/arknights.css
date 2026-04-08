@@ -2142,10 +2142,16 @@ main:not(.up) .search #search-header input {
 .hide:not(:hover) span {
   transition: 0.1s;
 }
-@property --card-border {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: transparent;
+.link-card {
+  --card-title: var(--theme-text-light);
+  --card-text: var(--theme-text);
+  --card-bg: var(--theme-bg-soft);
+  --card-bg-hover: var(--theme-bg-soft-hover);
+  --card-out: transparent;
+  --card-out-hover: var(--theme-highlight);
+  --card-border: var(--theme-text-light);
+  --card-border-hover: var(--theme-highlight);
+  --card-line: var(--theme-border-soft);
 }
 .link-card {
   display: inline-block;
@@ -2156,19 +2162,19 @@ main:not(.up) .search #search-header input {
   z-index: 1;
 }
 .link-card:hover {
-  background-color: var(--theme-bg-soft-hover);
+  background-color: var(--card-bg-hover);
 }
 .link-card:hover::before {
-  --card-border: var(--theme-highlight);
+  --card-out: var(--card-out-hover);
 }
 .link-card:hover .link-main {
-  border-left: 2px solid var(--theme-highlight);
+  border-left: 2px solid var(--card-border-hover);
 }
 .link-card img {
   max-height: 100%;
   max-width: 100%;
   display: block;
-  border-bottom: 1px solid var(--theme-border-soft);
+  border-bottom: 1px solid var(--card-line);
   margin-bottom: -1px;
 }
 .link-card::before {
@@ -2178,14 +2184,13 @@ main:not(.up) .search #search-header input {
   top: 0;
   width: 100%;
   height: 100%;
-  transition: --card-border 0.3s;
-  box-shadow: 0 0 5px inset var(--card-border);
+  transition: --card-out 0.3s;
+  box-shadow: 0 0 5px inset var(--card-out);
 }
 .link-main {
   transition: border-color 0.3s;
-  background-color: var(--theme-bg-soft);
-  border-left: 2px solid var(--theme-text-light);
-  border-block: inset 1px solid var(--theme-border-soft);
+  background-color: var(--card-bg);
+  border-left: 2px solid var(--card-border);
   display: flex;
   align-items: center;
   height: 4em;
@@ -2212,25 +2217,21 @@ main:not(.up) .search #search-header input {
   width: 100%;
 }
 .link-main .link-title {
-  color: var(--theme-text-light);
+  color: var(--card-title);
   font-size: 1.2em;
 }
 .link-main .link-descr {
-  color: var(--theme-text);
+  color: var(--card-text);
   font-family: BenderLight, FangSong, sans-serif;
-  height: 36px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  min-height: 36px;
 }
 .link-main .link-descr.link-full {
   height: 54px;
   -webkit-line-clamp: 3;
 }
 .link-main.link-simple {
-  height: 3em;
+  min-height: 3em;
+  height: max-content;
 }
 .link-background {
   position: relative;
